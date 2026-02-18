@@ -1,156 +1,132 @@
-# Laboratory Work #1: Setting Up Web Development Environment and Creating a Basic Java Web Application
+# Laboratory Work #2
+## Displaying a List of IT Company Employees Using a Servlet
 
-**Student:** Osinnii Roman Maksymovych\
-**Group:** KN223L\
-**Specialty:** 121 Software Engineering\
-**University:** National Technical University "Kharkiv Polytechnic
-Institute"
+**Student:** Osinnii Roman Maksymovych  
+**Group:** KN223L  
+**Specialty:** 121 Software Engineering  
+**University:** National Technical University "Kharkiv Polytechnic Institute"
 
-------------------------------------------------------------------------
+---
 
-## 1. Environment Setup
+## Objective
 
-### 1.1. JDK Installation
+Develop a Java web application that displays a list of employees of an IT company on a web page:
+- the start page (`index.jsp`) launches a servlet via an HTTP GET request;
+- the servlet dynamically generates an HTML page;
+- the page contains an HTML table built from a collection of employee objects.
 
-For this project, **JDK 17** was selected as the recommended stable
-version for web development tasks.
+---
 
-**Installation Path:** `C:\Program Files\Java\jdk-17`
+## Application Workflow
 
-**Verification:**
+1. Open the start page in the browser.
+2. Click the link to the servlet (`/maketable`).
+3. The servlet generates an HTML page with a table of employees.
+4. The page contains a **Back** link to return to the start page.
 
-``` bash
-java -version
-```
+---
 
-------------------------------------------------------------------------
+## Project Structure
 
-### 1.2. IDE Installation
+| Component | Description |
+|---|---|
+| `index.jsp` | Start page with a link that runs the servlet |
+| `MakeTableServlet` | Servlet that generates an HTML page and employee table |
+| `Employee` | Employee model class *(provided by instructor)* |
+| `EmployeeList` | Collection of employees *(provided by instructor)* |
+| `ProgramLanguages` | Enum of programming languages *(provided by instructor)* |
 
-**IntelliJ IDEA Ultimate Edition** was installed.\
-This version is preferred for web development as it provides built-in
-tools for Jakarta EE projects and application server management.
+---
 
-------------------------------------------------------------------------
+## Academic Integrity Note
 
-### 1.3. Apache Tomcat 10.1 Configuration
+The following classes were provided by the instructor and are **not** authored by the student:
 
-**Apache Tomcat 10.1.x** was chosen as the servlet container to support
-Jakarta EE 9/10 (Servlet API 6.0).
+- `Employee`
+- `EmployeeList`
+- `ProgramLanguages`
 
--   **Port Configuration:** Changed to **9026** to avoid conflicts with
-    other services.
--   **Server Name:** Configured according to project requirements.
--   **JDK Integration:** Installer was pointed to the JDK 17 directory
-    to ensure correct runtime.
+The student implemented:
+- `index.jsp` start page (UI link to servlet)
+- `MakeTableServlet` (HTML generation and table rendering)
+- deployment/run configuration in the IDE
 
-------------------------------------------------------------------------
+---
 
-## 2. Project Creation and Structure
+## Start Page (`index.jsp`)
 
-### 2.1. Project Initialization
-
-The project was created using the Jakarta EE wizard in IntelliJ IDEA
-with the following parameters:
-
-Parameter            Value
-  -------------------- -------------------------------
-Project Name         OSINNII_KN223L_WEBJava26_Lab1
-Build System         Maven
-Group ID             rosinnii.code
-Artifact ID          Lab1
-Jakarta EE Version   Jakarta EE 10
-
-------------------------------------------------------------------------
-
-### 2.2. Dependency Management (`pom.xml`)
-
-Servlet API **6.0.0** was used for compatibility with Tomcat 10.1:
-
-``` xml
-<dependency>
-    <groupId>jakarta.servlet</groupId>
-    <artifactId>jakarta.servlet-api</artifactId>
-    <version>6.0.0</version>
-    <scope>provided</scope>
-</dependency>
-```
-
-------------------------------------------------------------------------
-
-## 3. Implementation
-
-### 3.1. Main Page Development (`index.jsp`)
-
-A Java Server Page (JSP) was created to display the required information
-using UTF‑8 encoding.
-
-``` jsp
+```jsp
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lab 1 - WebWorld Greeting</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
-    <h1>Hello, WebWorld!!!</h1>
-    <hr>
-    <p><b>Student Name:</b> Osinnii Roman Maksymovych</p>
-    <p><b>Group:</b> KN223L</p>
-    <p><b>Position in List:</b> 8</p>
+<h1>Hello, Page With Table!</h1>
+<br/>
+<h2>Osinnii Roman Maksymovich</h2>
+<h3>Task 2</h3>
+<br>
+<a href="maketable">Show my list with table!</a>
 </body>
 </html>
 ```
 
-------------------------------------------------------------------------
+---
 
-## 4. Deployment and Execution
+## Servlet Mapping
 
-### 4.1. Server Run Configuration
+The servlet is mapped using annotation:
 
-Parameter             Value
-  --------------------- --------------------
-Application Server    Apache Tomcat 10.1
-Artifact              Lab1:war exploded
-Application Context   `/Lab1`
+```java
+@WebServlet("/maketable")
+```
 
-Application available at:
+---
 
-    http://localhost:9026/code_war_exploded/
+## How to Run
 
-------------------------------------------------------------------------
+### Requirements
+- JDK 17
+- Apache Tomcat 10.1
+- IntelliJ IDEA (Jakarta EE project)
+- Tomcat HTTP port: **9026**
 
-### 4.2. Results
+### Run Steps
+1. Start Tomcat from IntelliJ IDEA (Run configuration).
+2. Open the application:
 
-After running the project:
+```text
+http://localhost:9026/code_war_exploded/
+```
 
--   Tomcat successfully deployed the application.
--   The browser displayed the greeting message and student information.
+3. Click **“Show my list with table!”** to open the servlet page.
 
-**Application Screenshot:** *(Insert screenshot here)*
+---
 
-------------------------------------------------------------------------
+## Result
 
-## 5. Deployment Instructions (Self‑Guide)
+After run:
+- the servlet returns a dynamically generated HTML page;
+- an employees table is displayed;
+- the **Back** link returns to the start page.
 
-To run the project on another machine:
+---
 
-1.  Install **JDK 17** and configure it in the IDE.
-2.  Install **Apache Tomcat 10.1** and ensure it uses port **9026**.
-3.  Import the project as a **Maven project**.
-4.  Ensure dependencies use the `jakarta.*` namespace (not `javax.*`).
-5.  Run the Tomcat configuration from the IDE.
+## Screenshots
 
-------------------------------------------------------------------------
+### Start Page
+![Start Page](screenshots/start-page.png)
 
-## ✅ Conclusion
+### Employees Table
+![Employees Table](screenshots/table-page.png)
+---
 
-During this laboratory work:
+## Conclusion
 
--   A complete Java web development environment was installed.
--   Apache Tomcat 10.1 was configured and integrated with IntelliJ IDEA.
--   A Jakarta EE web application was created using Maven.
--   The application was successfully deployed and executed.
-
-This confirms the correct setup of the Java Jakarta EE development
-stack.
+This laboratory work demonstrates:
+- launching a servlet from a JSP start page using HTTP GET;
+- generating HTML in a servlet using `PrintWriter`;
+- building an HTML table from a Java collection;
+- deploying and running a Jakarta Servlet application on Apache Tomcat 10.1.
